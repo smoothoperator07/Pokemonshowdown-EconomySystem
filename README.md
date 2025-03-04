@@ -90,15 +90,6 @@ The `EconomySystem` class provides essential economy functions:
 | `resetAll(): Promise<void>` | Reset all user balances. |
 | `deleteUser(userid: string): Promise<void>` | Delete a user from the economy system. |
 
----
-
-## 📦 Exported Modules  
-
-- **`EconomySystem`** – Core economy logic  
-- **`commands`** – Handles economy-related chat commands  
-
----
-
 ## 🙌 Credits  
 
 Developed by Clark Jones @Prince Sky
