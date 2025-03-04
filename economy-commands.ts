@@ -1,7 +1,9 @@
 import { EconomySystem } from '../../lib/economy';
 const economy = new EconomySystem();
 
-const currencyName = 'Pokèdollars';
+// Make currencyName global to be used
+// in other files
+global.currencyName = 'Pokèdollars';
 
 export const commands: Chat.ChatCommands = {
 	balance: async function (target, room, user) {
