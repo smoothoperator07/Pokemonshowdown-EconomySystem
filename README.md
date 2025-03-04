@@ -1,6 +1,6 @@
 # 🏦 Economy System for Pokémon Showdown  
 
-A **lightweight and efficient economy system** designed for Pokémon Showdown bots. Supports **JSON storage** and **MongoDB**, allowing users to manage virtual currency with **balances, transfers, leaderboards, and admin controls**.
+A **lightweight and efficient economy system** designed for Pokémon Showdown Servers. Supports **JSON storage** and **MongoDB**, allowing users to manage virtual currency with **balances, transfers, leaderboards, and admin controls**.
 
 ---
 
@@ -21,7 +21,7 @@ git clone https://github.com/yourusername/economy-system.git
 cd economy-system
 ```
 
-### 2️⃣ Move the necessary files to Pokémon Showdown  
+### 2️⃣ Move the necessary files to your Pokémon Showdown repository
 
 - Move `economy.ts` to:  
   ```sh
@@ -101,7 +101,7 @@ The `EconomySystem` class provides essential economy functions:
 
 ## 🙌 Credits  
 
-Developed by [Your Name or GitHub Username].  
+Developed by Clark Jones @Prince Sky
 Contributions and feedback are always welcome!  
 
 ---
