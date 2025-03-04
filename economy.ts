@@ -139,10 +139,10 @@ private async save(): Promise<void> {
             );
 
             if (!result.value) {
-                throw new Error(`Failed to remove currency: insufficient funds for ${userid}`);
+                throw new Error(`Failed to remove ${currencyName}: insufficient funds for ${userid}`);
             }
         } catch (error) {
-            console.error(`Database error while removing currency for ${userid}:`, error);
+            console.error(`Database error while removing ${currencyName} for ${userid}:`, error);
             throw new Error("Database update failed.");
         }
     } else {
@@ -157,7 +157,7 @@ private async save(): Promise<void> {
     toUser = toID(toUser);
     
     if (amount <= 0) throw new Error("Amount must be greater than zero.");
-    if (fromUser === toUser) throw new Error("Cannot transfer currency to yourself.");
+    if (fromUser === toUser) throw new Error("Cannot transfer ${currencyName} to yourself.");
 
     const balance = await this.getBalance(fromUser);
     if (balance < amount) throw new Error("Insufficient funds.");
@@ -188,7 +188,7 @@ private async save(): Promise<void> {
             await session.commitTransaction();
         } catch (error) {
             await session.abortTransaction();
-            console.error(`Failed to transfer currency from ${fromUser} to ${toUser}:`, error);
+            console.error(`Failed to transfer ${currencyName} from ${fromUser} to ${toUser}:`, error);
             throw new Error("Transaction failed.");
         } finally {
             session.endSession(); // Ensure session always ends

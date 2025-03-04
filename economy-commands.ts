@@ -1,6 +1,8 @@
 import { EconomySystem } from '../../lib/economy';
 const economy = new EconomySystem();
 
+const currencyName = 'Pokèdollars';
+
 export const commands: Chat.ChatCommands = {
 	balance: async function (target, room, user) {
     this.runBroadcast(); // Allows broadcasting
@@ -8,7 +10,7 @@ export const commands: Chat.ChatCommands = {
     const targetUser = target ? toID(target) : user.id; // Ensures we use userid
 
     const balance = await economy.getBalance(targetUser);
-    this.sendReplyBox(`${targetUser} has ${balance} currency.`);
+    this.sendReplyBox(`${targetUser} has ${balance} ${${currencyName}Name}.`);
 },
 
 	givemoney: async function (target, room, user) {
@@ -23,15 +25,15 @@ export const commands: Chat.ChatCommands = {
     }
 
     await economy.addCurrency(targetUserID, amount);
-    this.addGlobalModAction(`${user.name} gave ${amount} currency to ${targetUserID}.`);
+    this.addGlobalModAction(`${user.name} gave ${amount} ${currencyName} to ${targetUserID}.`);
 
     // Notify sender
-    this.sendReply(`You have successfully given ${amount} currency to ${targetUserID}.`);
+    this.sendReply(`You have successfully given ${amount} ${currencyName} to ${targetUserID}.`);
 
     // Notify target user if they are online
     const targetUserObj = Users.get(targetUserID);
     if (targetUserObj) {
-        targetUserObj.send(`|pm|${user.name}|${targetUserObj.name}|You have received ${amount} currency from ${user.name}!`);
+        targetUserObj.send(`|pm|${user.name}|${targetUserObj.name}|You have received ${amount} ${currencyName} from ${user.name}!`);
     }
 },
 
@@ -47,18 +49,18 @@ export const commands: Chat.ChatCommands = {
     }
 
     const balance = await economy.getBalance(targetUserID);
-    if (balance < amount) return this.errorReply("User does not have enough currency.");
+    if (balance < amount) return this.errorReply("User does not have enough ${currencyName}.");
 
     await economy.removeCurrency(targetUserID, amount);
-    this.addGlobalModAction(`${user.name} took ${amount} currency from ${targetUserID}.`);
+    this.addGlobalModAction(`${user.name} took ${amount} ${currencyName} from ${targetUserID}.`);
 
     // Notify sender
-    this.sendReply(`You have successfully taken ${amount} currency from ${targetUserID}.`);
+    this.sendReply(`You have successfully taken ${amount} ${currencyName} from ${targetUserID}.`);
 
     // Notify target user if they are online
     const targetUserObj = Users.get(targetUserID);
     if (targetUserObj) {
-        targetUserObj.send(`|pm|${user.name}|${targetUserObj.name}|${user.name} has taken ${amount} currency from you.`);
+        targetUserObj.send(`|pm|${user.name}|${targetUserObj.name}|${user.name} has taken ${amount} ${currencyName} from you.`);
     }
 },
 
@@ -73,18 +75,18 @@ export const commands: Chat.ChatCommands = {
     }
 
     if (senderID === targetUserID) return this.errorReply("You cannot transfer money to yourself.");
-    if (await economy.getBalance(senderID) < amount) return this.errorReply("You do not have enough currency.");
+    if (await economy.getBalance(senderID) < amount) return this.errorReply("You do not have enough ${currencyName}.");
 
     await economy.transferCurrency(senderID, targetUserID, amount);
-    this.addGlobalModAction(`${user.name} transferred ${amount} currency to ${targetUserID}.`);
+    this.addGlobalModAction(`${user.name} transferred ${amount} ${currencyName} to ${targetUserID}.`);
 
     // Notify sender
-    this.sendReply(`You have successfully transferred ${amount} currency to ${targetUserID}.`);
+    this.sendReply(`You have successfully transferred ${amount} ${currencyName} to ${targetUserID}.`);
 
     // Notify recipient if online
     const targetUserObj = Users.get(targetUserID);
     if (targetUserObj) {
-        targetUserObj.send(`|pm|${user.name}|${targetUserObj.name}|You have received ${amount} currency from ${user.name}!`);
+        targetUserObj.send(`|pm|${user.name}|${targetUserObj.name}|You have received ${amount} ${currencyName} from ${user.name}!`);
     }
 },
 
@@ -97,7 +99,7 @@ export const commands: Chat.ChatCommands = {
         let msg = `<strong>Top 100 Richest Users:</strong><br>`;
         for (let i = 0; i < topUsers.length; i++) {
             const username = Users.get(topUsers[i].user)?.name || topUsers[i].user;
-            msg += `${i + 1}. <strong>${username}</strong>: ${topUsers[i].balance} currency<br>`;
+            msg += `${i + 1}. <strong>${username}</strong>: ${topUsers[i].balance} ${currencyName}<br>`;
         }
 
         return this.sendReplyBox(
@@ -113,7 +115,7 @@ export const commands: Chat.ChatCommands = {
     let msg = `<strong>Top 20 Richest Users:</strong><br>`;
     for (let i = 0; i < topUsers.length; i++) {
         const username = Users.get(topUsers[i].user)?.name || topUsers[i].user;
-        msg += `${i + 1}. <strong>${username}</strong>: ${topUsers[i].balance} currency<br>`;
+        msg += `${i + 1}. <strong>${username}</strong>: ${topUsers[i].balance} ${currencyName}<br>`;
     }
 
     return this.sendReplyBox(
@@ -152,6 +154,6 @@ deleteuser: async function (target, room, user) {
 	
     economyhelp: function (target, room, user) {
         this.runBroadcast();
-		 this.sendReplyBox(`<div style="max-height:300px; overflow:auto; padding:5px; border:1px solid #444; background:#222; color:white;"><strong><center>Economy Commands:</center></strong><br><strong>/balance [username]</strong> - Shows your or another user's balance.<br><strong>/givemoney [username], [amount]</strong> - Give a user currency. (Admin only)<br><strong>/takemoney [username], [amount]</strong> - Remove currency from a user. (Admin only)<br><strong>/transfermoney [username], [amount]</strong> - Transfer currency to another user.<br><strong>/richestuser</strong> - Show the top 20 richest users.<br><strong>/richestuser all</strong> - Show the top 100 richest users (non-broadcast).<br><strong>/reset</strong> - Reset all balances. (Admin only)<br><strong>/deleteuser [username]</strong> - Delete a user's economy data. (Admin only)<br></div>`);
+		 this.sendReplyBox(`<div style="max-height:300px; overflow:auto; padding:5px; border:1px solid #444; background:#222; color:white;"><strong><center>Economy Commands:</center></strong><br><strong>/balance [username]</strong> - Shows your or another user's balance.<br><strong>/givemoney [username], [amount]</strong> - Give a user ${currencyName}. (Admin only)<br><strong>/takemoney [username], [amount]</strong> - Remove ${currencyName} from a user. (Admin only)<br><strong>/transfermoney [username], [amount]</strong> - Transfer ${currencyName} to another user.<br><strong>/richestuser</strong> - Show the top 20 richest users.<br><strong>/richestuser all</strong> - Show the top 100 richest users (non-broadcast).<br><strong>/reset</strong> - Reset all balances. (Admin only)<br><strong>/deleteuser [username]</strong> - Delete a user's economy data. (Admin only)<br></div>`);
     },
 };
