@@ -10,7 +10,7 @@ export const commands: Chat.ChatCommands = {
     const targetUser = target ? toID(target) : user.id; // Ensures we use userid
 
     const balance = await economy.getBalance(targetUser);
-    this.sendReplyBox(`${targetUser} has ${balance} ${${currencyName}Name}.`);
+    this.sendReplyBox(`${targetUser} has ${balance} ${currencyName}.`);
 },
 
 	givemoney: async function (target, room, user) {
