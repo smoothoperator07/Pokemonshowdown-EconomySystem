@@ -36,7 +36,7 @@ cd economy-system
 
 - **JSON Mode (default):** Stores economy data in `databases/economy.json`.  
 - **MongoDB Mode:**
-- Add `"mongodb": "^6.14.1"` in your package.json "dependencies"
+- Add `"mongodb": "^6.14.1",` in your package.json "dependencies"
   - Set `useMongoDB = true` in `economy.ts`.  
   - Provide your **MongoDB connection URL** in `mongoUrl`.
 
