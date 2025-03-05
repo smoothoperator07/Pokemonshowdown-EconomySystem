@@ -38,7 +38,7 @@ cd economy-system
 - **MongoDB Mode:**
 - Add `"mongodb": "^6.14.1",` in your package.json "dependencies"
   - Set `useMongoDB = true` in `economy.ts`.  
-  - Provide your **MongoDB connection URL** in `mongoUrl`.
+  - Provide your **MongoDB connection URL** in economy.ts `mongoUrl`.
 
 ### 4️⃣ Restart Pokémon Showdown Server  
 ```sh
